@@ -1,0 +1,249 @@
+---
+title: "Plan Proyecto Final – Programación y SIG"
+author: "Kevin Orlando Reyes Mosquera"
+bibliography: referencias.bib
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    theme: cosmo
+    code-fold: show
+    code-tools: true
+    code-copy: true
+    smooth-scroll: true
+    self-contained: true
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+execute:
+  echo: true
+  warning: false
+  message: false
+lang: es
+---
+
+<style>
+body {
+  text-align: justify;
+  line-height: 1.7;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+}
+
+h1 {
+  border-bottom: 3px solid #2c7fb8;
+  padding-bottom: 0.3rem;
+  margin-top: 1.2rem;
+}
+
+h2 {
+  color: #1f5f8b;
+  margin-top: 1.5rem;
+}
+
+h3 {
+  color: #2c7a7b;
+}
+
+.caja-suave {
+  background: #f7fbff;
+  border-left: 6px solid #2c7fb8;
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.caja-verde {
+  background: #f3fbf6;
+  border-left: 6px solid #2ca25f;
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.caja-morada {
+  background: #faf7ff;
+  border-left: 6px solid #7a4ebf;
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+pre, code {
+  border-radius: 8px;
+}
+
+pre code {
+  font-size: 0.95rem;
+}
+
+table {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+th {
+  background-color: #eaf4fb !important;
+}
+
+blockquote {
+  border-left: 5px solid #2c7fb8;
+  background: #f8fbfd;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+}
+</style>
+
+# Título del proyecto
+
+::: {.caja-suave}
+**Identificación de minería de oro de aluvión mediante imágenes satelitales y aprendizaje automatizado en un flujo de trabajo reproducible con Kedro**
+:::
+
+# Introducción y justificación
+
+La minería de oro de aluvión es una de las formas de extracción de minerales más controvertidas en el mundo, debido a sus significativos impactos sociales y medioambientales. Esta actividad, que se desarrolla principalmente en los cauces de los ríos, ha generado una preocupación histórica por la pérdida de ecosistemas, la degradación de las quebradas y los ríos, así como por las tensiones sociales derivadas del uso inapropiado de los recursos naturales.
+
+En este contexto, la geomática, como disciplina que integra los Sistemas de Información Geográfica (SIG), la programación, la teledetección y el análisis de información geoespacial, se ha consolidado como un campo fundamental para la gestión y monitoreo de los recursos naturales.
+
+En el caso de la minería de oro de aluvión, su identificación mediante imágenes satelitales presenta múltiples desafíos técnicos, entre los que destacan la variabilidad espectral de los materiales, la heterogeneidad del paisaje intervenido y la dinámica espacio-temporal de las áreas afectadas. Desde una perspectiva geoespacial, esta actividad se caracteriza por una distribución dispersa y altamente dinámica, asociada principalmente a redes hidrográficas y zonas aluviales, lo que dificulta su delimitación precisa y su monitoreo continuo en el territorio. Estas características hacen necesario el uso de metodologías avanzadas que permitan automatizar su detección con mayor precisión y rapidez.
+
+Diversos estudios han evidenciado que esta actividad genera impactos severos, como la contaminación por mercurio y cianuro, la pérdida de cobertura vegetal y la degradación de suelos [@perez2016impactos; @bansah2022guns; @cardona2022highly]. Estas afectaciones comprometen no solo los ecosistemas, sino también las condiciones de vida de las comunidades locales [@velez2014extractivism].
+
+A nivel institucional, entidades como la UNODC han incorporado el uso de imágenes satelitales para el monitoreo de esta actividad [@unodc2022evidencias]. No obstante, estos análisis presentan limitaciones en términos de actualización temporal, ya que los reportes se publican con desfases significativos, lo que reduce la capacidad de respuesta oportuna frente a la dinámica de expansión de la minería.
+
+Ahora bien, pese al evidente potencial de las herramientas de observación de la Tierra para detectar, mapear y monitorear los impactos de esta actividad extractiva, su aplicación sigue siendo limitada en Colombia [@ibrahim2020small]. En este contexto, la ausencia de sistemas automatizados de vigilancia limita la generación de alertas tempranas y dificulta la intervención oportuna en zonas afectadas [@rincon2024fracaso].
+
+En este sentido, los modelos de inteligencia artificial y aprendizaje automático emergen como una alternativa prometedora, al permitir la identificación y el monitoreo de patrones espaciales y temporales asociados a la minería de oro de aluvión con mayor precisión y escalabilidad [@nursamsi2024feasibility].
+
+Por tanto, este proyecto propone integrar técnicas de teledetección y aprendizaje automático para la identificación de minería de oro de aluvión mediante imágenes satelitales, a través del desarrollo de un flujo de trabajo reproducible basado en Kedro. Este enfoque permitirá estructurar de manera sistemática las etapas de adquisición, procesamiento y análisis de datos, garantizando la trazabilidad, escalabilidad y reproducibilidad del proceso, así como el análisis de su distribución espacial y evolución temporal en la zona de estudio.
+
+# Revisión bibliográfica
+
+El estudio de la minería de oro de aluvión desde una perspectiva geoespacial ha cobrado creciente interés en la comunidad científica, particularmente con el avance de las tecnologías de observación de la Tierra, los Sistemas de Información Geográfica (SIG) y el desarrollo de herramientas de programación orientadas al análisis de datos espaciales. En este contexto, la literatura reciente ha abordado la identificación, monitoreo y análisis de esta actividad mediante el uso de imágenes satelitales, integrando enfoques que combinan el procesamiento digital de imágenes, el análisis multitemporal y la implementación de algoritmos de aprendizaje automático en entornos computacionales. Estas aproximaciones han permitido no solo mejorar la comprensión de la dinámica espacial de la minería, sino también avanzar hacia metodologías automatizadas, reproducibles y escalables para su detección en diferentes contextos geográficos.
+
+En el estudio de [@nursamsi2024feasibility] se destaca la utilización de imágenes SAR (Radar de Apertura Sintética), combinadas con imágenes multiespectrales y modelos de aprendizaje automatizado en el aplicativo de Google Earth Engine, para identificar y mapear minería artesanal en la región minera de Kalimantan, Indonesia. Por su parte, [@ngom2022recent] identificaron y cuantificaron la tasa de expansión de las áreas afectadas por la minería en el río Bandama, Costa de Marfil, durante el período 2018-2021, mediante la aplicación de algoritmos de aprendizaje automático sobre imágenes Sentinel-2. Ambos estudios evidencian el potencial de la integración entre sensores remotos y algoritmos como Máquinas de Vectores de Soporte (SVM) y Random Forest (RF) para el monitoreo eficiente de la minería en distintos contextos geográficos.
+
+Por otro lado, [@kumar2023comparative] abordaron el monitoreo continuo de áreas con actividad minera mediante el uso de imágenes satelitales y técnicas avanzadas de procesamiento. En su estudio, destacan la aplicación de algoritmos de aprendizaje profundo para clasificar coberturas del suelo en zonas mineras, utilizando imágenes fusionadas provenientes de sensores LISS-IV, Landsat-8 y Sentinel-2A. Esta integración multifuente permitió mejorar la resolución espacial y espectral, incrementando la exactitud en la detección y seguimiento de los cambios inducidos por la actividad minera.
+
+De manera complementaria, [@saputra2025multimodal] exploraron la aplicación de técnicas de segmentación semántica empleando imágenes multiespectrales para identificar zonas mineras en diferentes regiones del mundo. Estos enfoques evidencian un avance hacia metodologías más automatizadas, basadas en modelos de aprendizaje profundo como redes neuronales convolucionales, que permiten mejorar la clasificación y el monitoreo de coberturas asociadas a la minería.
+
+En esta misma línea, [@vanrensburg2022sar] integraron imágenes Sentinel-1 con datos ópticos mediante análisis multitemporal y la implementación de algoritmos como k-vecinos más cercanos (KNN), árboles de decisión (DT), Random Forest (RF) y SVM, para identificar actividades de minería artesanal en zonas tropicales de Ghana. Este tipo de aproximaciones permite analizar la expansión progresiva de la minería, facilitando el seguimiento de los cambios espaciales en el territorio.
+
+A nivel nacional, se han logrado avances importantes en la identificación y clasificación de la minería de oro de aluvión mediante el uso de imágenes satelitales y diferentes enfoques metodológicos. Un estudio destacado es el realizado por la UNODC [@unodc2022evidencias], el cual empleó propiedades pictoricomorfológicas como la forma, el tamaño, la textura y la asociación espacial para detectar explotación de oro de aluvión en Colombia.
+
+Por su parte, Castellanos [@castellanos2016tesis] y Castellanos et al. [@castellanos2017detection] desarrollaron una metodología aplicada al Bajo Cauca antioqueño, basada en la fusión de imágenes satelitales, el uso de índices espectrales y la clasificación orientada a objetos, con el fin de discriminar áreas mineras y no mineras. Su propuesta incluye etapas como la selección de muestras representativas, el análisis del índice de Fisher y la evaluación del error, logrando resultados robustos en la identificación de zonas mineras a cielo abierto.
+
+Si bien estos estudios no incorporan de manera explícita algoritmos avanzados de aprendizaje automatizado, constituyen un referente metodológico fundamental en el país y un punto de partida para la implementación de enfoques más robustos. Además, aportan al entendimiento de las propiedades espectrales y espaciales asociadas a la minería de oro de aluvión.
+
+En la misma línea, otros estudios nacionales aportan enfoques complementarios [@ibrahim2020small] aplicaron técnicas de detección de cambios mediante imágenes Sentinel-2 en los municipios de El Bagre y Zaragoza, empleando métodos de clasificación supervisada para identificar transformaciones del paisaje asociadas a la minería. Por su parte, [@sandoval2022metodologia] utilizaron imágenes radar Sentinel-1 en la región del Chocó para detectar minería en condiciones de alta nubosidad, mientras que [@herrera2025temporal] analizaron cambios de cobertura del suelo entre 1985 y 2020 mediante imágenes Landsat y clasificación no supervisada en el municipio de Ayapel.
+
+A pesar de los avances identificados, gran parte de los estudios se han enfocado en la aplicación de técnicas específicas de clasificación o en análisis multitemporales, sin integrar de manera estructurada y reproducible todo el flujo de trabajo, desde la adquisición de datos hasta la implementación de modelos. En este sentido, se identifica una oportunidad de investigación en la integración de técnicas de teledetección y aprendizaje automático dentro de entornos reproducibles que permitan automatizar y sistematizar el proceso de identificación de minería de oro de aluvión en contextos como el colombiano.
+
+# Objetivos
+
+## Objetivo general
+
+::: {.caja-verde}
+Desarrollar un flujo de trabajo basado en herramientas de programación, sensores remotos y algoritmos de aprendizaje automatizado para la identificación de minería de oro de aluvión.
+:::
+
+## Objetivos específicos
+
+::: {.caja-verde}
+1. Diseñar e implementar un flujo de trabajo reproducible, basado en herramientas de programación, para la adquisición, integración y procesamiento de imágenes satelitales orientado a la generación de variables relevantes para la detección de minería de oro de aluvión.
+
+2. Evaluar el desempeño de diferentes algoritmos de aprendizaje automático para la identificación de minería de oro de aluvión a partir de imágenes satelitales, mediante un flujo de trabajo reproducible.
+:::
+
+# Área de estudio
+
+El área de estudio corresponde a los municipios de **Nechí** y **Caucasia**, ubicados en la subregión del Bajo Cauca Antioqueño, en el departamento de Antioquia. Esta zona se localiza entre las coordenadas 7°14’24” y 8°11’31,2” de latitud norte, y 75°49’8,4” y 74°25’40,8” de longitud oeste. Si bien la subregión del Bajo Cauca Antioqueño es reconocida como una de las más impactadas por la minería de oro de aluvión (UNODC, 2022), el presente estudio se centra específicamente en estos dos municipios por su representatividad y relevancia dentro de esta dinámica minera.
+
+## Mapa de localización
+
+<!-- Opción simple: guarda tu imagen en una carpeta llamada images -->
+![Mapa de localización del área de estudio](images/mapa_area_estudio.png){fig-align="center" width="80%"}
+
+# Fuentes de datos
+
+Para el desarrollo del proyecto se emplearán dos fuentes principales de imágenes satelitales. La primera corresponde a imágenes de PlanetScope, obtenidas en el marco del convenio interadministrativo entre la Universidad Nacional de Colombia y el Instituto Geográfico Agustín Codazzi (IGAC), con fines estrictamente investigativos.
+
+La segunda fuente corresponde a imágenes Sentinel-2, las cuales serán consultadas y descargadas mediante la integración de Google Earth Engine con Visual Studio Code a través de su API de Python. Earth Engine es un servicio de procesamiento geoespacial a escala, y su cliente de Python permite autenticarse e inicializar sesiones desde un entorno local de desarrollo. Para facilitar el trabajo desde Python, este proceso puede complementarse con `geemap`, una librería orientada a explorar y utilizar Earth Engine dentro del ecosistema científico de Python.
+
+# Metodología propuesta
+
+::: {.caja-morada}
+El proyecto será desarrollado en Visual Studio Code, utilizando un entorno virtual de Python. La estructura del flujo de trabajo se implementará mediante Kedro, lo que permitirá organizar el proyecto en pipelines, nodos y catálogos de datos, garantizando la reproducibilidad y trazabilidad de los procesos.
+:::
+
+## Uso de librerías y su rol en el proyecto
+
+### 1. Integración y acceso a datos satelitales
+
+**Librerías:** `earthengine-api`, `geemap`, `Planet SDK`
+
+- Se utilizarán para acceder, consultar y descargar imágenes satelitales desde Google Earth Engine (Sentinel-2) y desde la plataforma de PlanetScope.
+- Permitirán realizar filtros espaciales y temporales, como selección por época seca y cobertura de nubes, e integrar los datos al entorno de desarrollo en Python.
+
+### 2. Procesamiento de datos ráster
+
+**Librerías:** `rasterio`, `rioxarray`, `xarray`, `numpy`
+
+- Se emplearán para la lectura, manipulación y procesamiento de imágenes satelitales.
+- Permitirán realizar operaciones como recorte, reproyección, alineación espacial y cálculo de variables espectrales a partir de las imágenes.
+
+### 3. Análisis de datos y preparación
+
+**Librerías:** `pandas`, `scipy`
+
+- Se emplearán para la organización, limpieza y estructuración de los datos en formato tabular.
+- Permitirán construir el conjunto de datos de entrenamiento a partir de las variables generadas.
+
+### 4. Análisis vectorial y SIG
+
+**Librerías:** `geopandas`, `shapely`, `pyproj`
+
+- Se utilizarán para el manejo de datos vectoriales, como áreas de estudio y etiquetas de entrenamiento.
+- Permitirán realizar análisis espaciales, operaciones geométricas y transformaciones de sistemas de referencia.
+
+### 5. Modelado y aprendizaje automático
+
+**Librerías:** `scikit-learn`, `xgboost`
+
+- Se utilizarán para implementar, entrenar y evaluar modelos de aprendizaje automático orientados a la detección de minería de oro de aluvión.
+- Permitirán comparar el desempeño de diferentes algoritmos mediante métricas de clasificación.
+
+### 6. Visualización
+
+**Librerías:** `matplotlib`, `plotly`, `folium`
+
+- Se emplearán para la visualización de resultados, análisis exploratorio y representación de datos espaciales.
+- Permitirán interpretar los resultados de los modelos y generar salidas gráficas y cartográficas.
+
+### 7. Gestión del flujo de trabajo reproducible
+
+**Librerías:** `kedro`, `kedro-datasets`, `kedro-viz`
+
+- Se utilizará Kedro como framework principal para estructurar el proyecto, garantizando la reproducibilidad, trazabilidad y organización del flujo de trabajo.
+- Los nodos (`nodes`) representarán funciones específicas del proceso, como la ingestión de datos, el procesamiento de imágenes, la generación de variables y el entrenamiento de modelos.
+- Los pipelines permitirán encadenar estos nodos de manera lógica, organizando el flujo completo desde la adquisición de datos hasta la evaluación de resultados.
+- El `Data Catalog` facilitará la gestión de entradas y salidas de datos, mientras que `Kedro-Viz` permitirá visualizar el flujo de trabajo de forma interactiva.
+
+# Consideraciones finales
+
+El proyecto integra herramientas de programación, análisis espacial, teledetección y aprendizaje automático con el fin de proponer una metodología reproducible para la identificación de minería de oro de aluvión. Su desarrollo en un entorno estructurado como Kedro representa un aporte metodológico importante, al facilitar la organización, trazabilidad y escalabilidad del proceso analítico.
+
+# Referencias
+
+::: {#refs}
+:::
+
+
+
+
